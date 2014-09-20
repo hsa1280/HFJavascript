@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Bubble Factory Test Lab</title>
+		<script>
+			var scores = [60, 50, 60, 58, 54, 54,
+			              58, 50, 52, 54, 48, 69,
+			              34, 55, 51, 52, 44, 51,
+			              69, 64, 66, 55, 52, 61,
+			              46, 31, 57, 52, 44, 18,
+			              41, 53, 55, 61, 51, 44];
+
+			var highest = scores[0];
+			var lowest = scores[0];
+			var highestIndex;
+			var lowestIndex;
+
+			var bestScores = [];
+			var lowScores = [];
+
+			var output;
+
+			for( var i = 0; i < scores.length; i++ ) {
+				output = "Bubble solution #" + i + " score: " + scores[i];
+				console.log(output);
+				if( i != 0 ) {
+					if( highest <= scores[i] ) {
+						highest = scores[i];
+						bestScores.push(i);
+					}
+
+					if( lowest >= scores[i] ) {
+						lowest = scores[i];
+						lowScores.push(i);
+					}
+				}
+			}
+
+			console.log("The highest is " + highest + ", the lowest is " +lowest);
+
+			console.log("The heightest indexes are ");
+			for( var i = 0; i < bestScores.length; i++ ) {
+				console.log(bestScores[i]);
+			}
+
+			console.log("The lowest indexes are ");
+			for( var i = 0; i < lowScores.length; i++ ) {
+				console.log(lowScores[i]);
+			}
+		</script>
+	</head>
+
+	<body>
+
+	</body>
