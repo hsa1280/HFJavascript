@@ -59,17 +59,100 @@ var model = {
 	}
 };
 
-model.fire("53");
 
-model.fire("06");
-model.fire("16");
-model.fire("26");
+function parseGuess( guess ) {
+	var alphabet = ["A","B","C","D","E","F","G"];
 
-model.fire("24");
-model.fire("34");
-model.fire("44");
+	if( guess == null || guess.length != 2 ) {
+		alert("Oops, please enter a letter and a number on the board");
+	}
+	else {
+		var firstLetter = guess.charAt(0);
+		var row = alphabet.indexOf(firstLetter);
+		var column = guess.charAt(1);
 
-model.fire("10");
-model.fire("11");
-model.fire("12");
+		if( isNaN(row) || isNaN(column) ) {
+			alert("Oops, that isn't on the board.");
+		}
+		else if( row < 0 || row > model.boardSize || column < 0 || column > model.boardSize ) {
+			alert("Oops, that is off the board!");
+		}
+		else {
+			return row + column;
+		}
+	}
+	return null;
+};
+
+function init() {
+	var fireButton = document.getElementById("fireButton");
+	fireButton.onclick = handleFireButton;
+};
+
+function handleFireButton() {
+	var guessInput = document.getElementById("guessInput");
+	var guess = guessInput.value;
+	controller.processGuess(guess);
+
+	guessInput.value = "";
+};
+
+window.onload = init;
+
+
+// function parseGuess(guess) {
+// 	var alphabet = ["A", "B", "C", "D", "E", "F", "G"];
+
+// 	if (guess === null || guess.length !== 2) {
+// 		alert("Oops, please enter a letter and a number on the board.");
+// 	} else {
+// 		var row = alphabet.indexOf(guess.charAt(0));
+// 		var column = guess.charAt(1);
+		
+// 		if (isNaN(row) || isNaN(column)) {
+// 			alert("Oops, that isn't on the board.");
+// 		} else if (row < 0 || row >= model.boardSize ||
+// 		           column < 0 || column >= model.boardSize) {
+// 			alert("Oops, that's off the board!");
+// 		} else {
+// 			return row + column;
+// 		}
+// 	}
+// 	return null;
+// }
+
+
+var controller = {
+	guesses: 0,
+
+	processGuess: function( guess ) {
+		var location = parseGuess( guess );
+		if( location ) {
+			this.guesses++;
+			hit = model.fire(location);
+			if( hit && model.shipsSunk === model.numShips ) {
+				view.displayMessage("You sank all my battleships, in " + "this guesses " + guesses);
+			}
+		}
+	}
+};
+/*
+var controller = {
+	guesses: 0,
+
+	processGuess: function(guess) {
+		var location = parseGuess(guess);
+		if (location) {
+			this.guesses++;
+			var hit = model.fire(location);
+			if (hit && model.shipsSunk === model.numShips) {
+					view.displayMessage("You sank all my battleships, in " + this.guesses + " guesses");
+			}
+		}
+	}
+}
+*/
+
+
+
 
